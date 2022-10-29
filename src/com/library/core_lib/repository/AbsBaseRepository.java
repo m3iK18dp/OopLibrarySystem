@@ -5,16 +5,26 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import com.library.core_lib.crypt_aes.*;
+import com.library.core_lib.crypt_rsa.*;
+
 public abstract class AbsBaseRepository {
 	public Connection conn;
+	public EncryptionRSA encryptRSA;
+	public EncryptionAES encryptAES;
+	public DecryptionRSA decryptRSA;
+	public DecryptionAES decryptAES;
 	static final String USER = "sa";
 	static final String PASS = "sa";
 
 	public AbsBaseRepository() {
 		try {
+			new SecurityKeyPairGeneratorRSA();
+			new SecurityKeyPairGeneratorAES();
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			conn = DriverManager.getConnection(
 					"jdbc:sqlserver://localhost;databasename=Library;username=" + USER + ";password=" + PASS);
+			System.out.println("Connect");
 		} catch (Exception e) {
 			conn();
 		}
@@ -69,5 +79,4 @@ public abstract class AbsBaseRepository {
 	public void setConn(Connection conn) {
 		this.conn = conn;
 	}
-
 }

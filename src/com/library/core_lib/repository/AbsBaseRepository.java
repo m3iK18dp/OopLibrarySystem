@@ -15,7 +15,6 @@ public abstract class AbsBaseRepository {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			conn = DriverManager.getConnection(
 					"jdbc:sqlserver://localhost;databasename=Library;username=" + USER + ";password=" + PASS);
-			System.out.println("Connect");
 		} catch (Exception e) {
 			conn();
 		}

@@ -23,7 +23,9 @@ public class AccountRepositoryImpl extends AbsBaseRepository implements GenericR
 		try {
 			ResultSet rs = this.conn.prepareStatement(sql).executeQuery();
 			while (rs.next())
-				accounts.add(new Account(rs.getString("UserName"), rs.getString("Password")));
+				accounts.add(new Account(
+						rs.getString("UserName"),
+						rs.getString("Password")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,8 +48,9 @@ public class AccountRepositoryImpl extends AbsBaseRepository implements GenericR
 	@Override
 	public boolean update(Account a) {
 		try {
-			PreparedStatement ps = this.conn.prepareStatement("UPDATE Account SET Password = '" + a.getPassword()
-					+ "' WHERE UserName = '" + a.getUserName() + "'");
+			PreparedStatement ps = this.conn
+					.prepareStatement("UPDATE Account SET Password = '" + a.getPassword()
+							+ "' WHERE UserName = '" + a.getUserName() + "'");
 			return ps.executeUpdate() > 0;
 		} catch (SQLException e) {
 			e.printStackTrace();
